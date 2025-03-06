@@ -15,14 +15,14 @@ with st.sidebar:
     
     # Hard cap growth parameters
     st.subheader("Hard Cap Growth")
-    cap_growth_enabled = st.checkbox("Enable Hard Cap Growth", value=False)
+    cap_growth_enabled = st.checkbox("Enable Hard Cap Growth", value=True)
     cap_growth_rate = st.number_input("Cap Growth Rate", min_value=0.0, max_value=1.0, value=0.1, format="%.2f", 
                                     help="Controls how quickly the cap grows (logarithmic growth)")
-    max_cap = st.number_input("Maximum Hard Cap", min_value=initial_cap, value=5e9, format="%.1e",
+    max_cap = st.number_input("Maximum Hard Cap", min_value=initial_cap, value=4e9, format="%.1e",
                             help="The upper limit for the hard cap")
     
     start_tvl = st.number_input("Initial TVL", min_value=1.0, value=50e6, format="%.1e")
-    delta_max = st.number_input("Max Tokens Per Day", min_value=1.0, value=100e6, format="%.1e")
+    delta_max = st.number_input("Max Tokens Per Day", min_value=1.0, value=2e9, format="%.1e")
     alpha = st.number_input("Alpha Parameter", min_value=1e-10, value=1e-5, format="%.1e")
     
     st.header("Simulation Length")
@@ -32,7 +32,7 @@ with st.sidebar:
     
     # Linear growth parameters
     st.subheader("Linear Growth")
-    growth_rate = st.slider("Growth Rate (Linear)", min_value=0.001, max_value=0.05, value=0.01, step=0.001, format="%.3f")
+    growth_rate = st.slider("Growth Rate (Linear)", min_value=0.001, max_value=0.05, value=0.005, step=0.001, format="%.3f")
     
     # Sinusoidal parameters
     st.subheader("Sinusoidal Growth")
@@ -42,13 +42,13 @@ with st.sidebar:
     
     # Exponential growth parameters
     st.subheader("Exponential Growth")
-    exp_growth_rate = st.slider("Growth Rate (Exponential)", min_value=0.0001, max_value=0.01, value=0.001, step=0.0001, format="%.4f")
+    exp_growth_rate = st.slider("Growth Rate (Exponential)", min_value=0.0001, max_value=0.002, value=0.0008, step=0.0001, format="%.4f")
     
     # S-curve parameters
     st.subheader("S-Curve Growth")
     s_curve_midpoint = st.slider("Midpoint (days)", min_value=100, max_value=3650, value=1825)
     s_curve_steepness = st.slider("Steepness", min_value=0.001, max_value=0.05, value=0.005, step=0.001)
-    s_curve_max_tvl = st.number_input("Max TVL", min_value=start_tvl, value=5e9, format="%.1e")
+    s_curve_max_tvl = st.number_input("Max TVL", min_value=start_tvl, value=1e9, format="%.1e")
 
 # Create epochs (days)
 days = 365 * years
