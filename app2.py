@@ -23,7 +23,8 @@ with st.sidebar:
     
     start_tvl = st.number_input("Initial TVL", min_value=1.0, value=50e6, format="%.1e")
     delta_max = st.number_input("Max Tokens Per Day", min_value=1.0, value=2e9, format="%.1e")
-    alpha = st.number_input("Alpha Parameter", min_value=1e-10, value=1e-5, format="%.1e")
+    alpha = st.number_input("Alpha", min_value=1e-10, value=1e-5, format="%.1e")
+    rho = st.slider("Rho", min_value=0.01, max_value=2.0, value=1.0, step=0.01, format="%0.04f")
     
     st.header("Simulation Length")
     years = st.slider("Years to Simulate", min_value=1, max_value=20, value=10)
@@ -92,7 +93,7 @@ def calculate_emissions(tvl_trajectory):
         g_cap = 1 - minted_so_far[t] / current_cap
         
         # Inverse TVL factor
-        f_tvl = 1 / (1 + alpha * tvl_values[t])
+        f_tvl = 1 / (1 + alpha * tvl_values[t])**rho
         
         # Provisional emission
         e_t = delta_max * g_cap * f_tvl
